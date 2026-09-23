@@ -22,15 +22,12 @@
 
 #ifndef ServoIndicador_H
 #define ServoIndicador_H
-
+#include "placa.h"
 #include <Arduino.h>
 #include <ESP32Servo.h>
 
-// ── Pino do servo ────────────────────────────────────────────
-// Ajuste aqui se o fio de sinal do servo estiver em outro pino.
-// GPIO13 foi escolhido por estar livre nesse projeto (motor usa
-// 4/18/19/23, sensores usam 14/33/34/35, IR usa 15, boot/LED usam 0/2).
-#define SERVO_PIN 13
+
+#define SERVO_PIN S5
 // ─────────────────────────────────────────────────────────────
 
 #define SERVO_CENTRO   90   // repouso / neutro

@@ -17,6 +17,7 @@
 #include "ModuloStart.h"
 #include "SeletorEstrategia.h"
 #include "ServoIndicador.h"
+#include "placa.h"
 
 #define boot 0
 
@@ -24,7 +25,6 @@ void setup() {
   Serial.begin(115200);
   motor.begin();
   moduloStart.begin();   // sensor IR no pino 15 (não mudar)
-  setupSensores();
   setupServo();           // nova saída de sinal do servo (ver ServoIndicador.h)
   pixels.begin();
   pixels.setBrightness(40); // 0 (apagado) a 255 (máximo) — ajuste aqui pra calibrar o brilho
