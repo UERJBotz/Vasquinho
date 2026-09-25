@@ -23,8 +23,8 @@
 // do seu controle: ligue o robô, aperte a seta e copie o valor
 // que aparece no Serial Monitor como "[IR] 0x..." (mesmo processo
 // usado pra descobrir os códigos das estratégias acima).
-#define IR_CMD_SETA_ESQ  0x0UL   // Seta ESQUERDA — servo vai para -90°
-#define IR_CMD_SETA_DIR  0x0UL   // Seta DIREITA  — servo vai para +90°
+#define IR_CMD_SETA_ESQ  0x2D0   // Seta ESQUERDA — servo vai para -90°
+#define IR_CMD_SETA_DIR  0xCD0   // Seta DIREITA  — servo vai para +90°
 // ╚══════════════════════════════════════════════════════════╝
 
 // ─── Enum das estratégias ────────────────────────────────────
