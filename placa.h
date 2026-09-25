@@ -1,3 +1,5 @@
+#ifndef placa_H
+#define placa_H
 /* ! os sensores do meio na frente tão ligados com esses "pinos" (não usar) ! */
 #define S0 VP
 #define S1 VIN
@@ -7,7 +9,7 @@
 #define S3 35  //lateral esquerda
 #define S4 32  
 #define S5 33  //frontal esquerda
-#define S6 25  
+#define SERVO_PIN 25  
 #define S7 27
 #define S8 14  //frontal direita
 
@@ -21,3 +23,15 @@
 #define MA2 18
 #define MB1 4
 #define MB2 23
+
+void setupPortas() {
+  pinMode(S3, INPUT);
+  pinMode(S5, INPUT);
+  pinMode(S8, INPUT);
+  pinMode(S2, INPUT);
+  pinMode(S4, INPUT);
+  pinMode(SERVO_PIN, OUTPUT);
+  pinMode(LED_STRIP, OUTPUT);
+}
+
+#endif
