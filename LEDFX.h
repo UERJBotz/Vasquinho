@@ -4,11 +4,6 @@
 #include "placa.h"
 #include <Adafruit_NeoPixel.h>
 
-#define LED4 3
-#define LED5 4
-#define LED6 5
-#define LED7 7
-#define LED1 0
 #define NUMPIXELS 8 // quantidade de leds do anel
 Adafruit_NeoPixel pixels(NUMPIXELS, LED_STRIP, NEO_GRB + NEO_KHZ800); // necessario
 
@@ -65,42 +60,22 @@ void setDefaultColor(uint8_t r, uint8_t g, uint8_t b) {
     pixels.setPixelColor(i, pixels.Color(r, g, b));
   }
 }
-
   
 
 void ledDetection() {
   setDefaultColor(150, 0, 0); // Define cor padrão
   leituraSensores();
-   
-  if (leitura[0]) {
-    Serial.println("ESQUERDA LATERAL DETECTADO");
-    pixels.setPixelColor(LED7, pixels.Color(0, 150, 0));              // LED principal
-    pixels.setPixelColor((LED7 - 1) % NUMPIXELS, pixels.Color(0, 150, 0)); // LED ao lado
+  
+  Serial.printf("%d %d %d %d\n", leitura[0], leitura[1], leitura[2], leitura[3]);
+  for (int i = 0; i<4; i++) {
+    if (leitura[i]) {
+      pixels.setPixelColor(i*2,   pixels.Color(0, 150, 0)); // LED principal
+      pixels.setPixelColor(i*2+1, pixels.Color(0, 150, 0)); // LED ao lado
+    }
   }
 
-  if (leitura[1]) {
-    Serial.println("ESQUERDA FRONTAL DETECTADO");
-    pixels.setPixelColor(LED5, pixels.Color(0, 0, 150));
-    pixels.setPixelColor((LED5 + 1) % NUMPIXELS, pixels.Color(0, 0, 150));
-  }
-
-  if (leitura[2]) {
-    Serial.println("DIREITA FRONTAL DETECTADO");
-    pixels.setPixelColor(LED4, pixels.Color(0, 0, 150));
-    pixels.setPixelColor((LED4 - 1) % NUMPIXELS, pixels.Color(0, 0, 150));
-  }
-
-  if (leitura[3]) {
-    Serial.println("DIREITA LATERAL DETECTADO");
-    pixels.setPixelColor(LED1, pixels.Color(0, 150, 0));
-    pixels.setPixelColor((LED1 + 1) % NUMPIXELS, pixels.Color(0, 150, 0));
-  }
   pixels.show();
   delay(10);
 }
 
-
-
-
 #endif
-
