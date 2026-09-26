@@ -16,14 +16,17 @@
 #include "LEDFX.h"
 #include "ModuloStart.h"
 #include "SeletorEstrategia.h"
+#include "ServoDirecao.h"
 
 void setup() {
   Serial.begin(115200);
+  setupServo(); 
   motor.begin();
   moduloStart.begin();   // sensor IR no pino 15 (não mudar)
   setupPortas();
   pixels.begin();
-  pixels.setBrightness(40); // 0 (apagado) a 255 (máximo) — ajuste aqui pra calibrar o brilho
+  pixels.setBrightness(40);  // 0 (apagado) a 255 (máximo) — ajuste aqui pra calibrar o brilho
+
 }
 
 void LED_Estrategias() {
@@ -63,7 +66,7 @@ void loop() {
     LED_Estrategias();
     seletorEstrategia.atualizar(moduloStart.ultimoResultado());
     Serial.print("Estrategia: ");
-    Serial.println(seletorEstrategia.nomeAtual()); // mostra leitura dos sensores nos LEDs
+    // Serial.println(seletorEstrategia.nomeAtual()); // mostra leitura dos sensores nos LEDs
   }
 
   // ── PREPARADO: escolha de estratégia ─────────────────────
@@ -72,7 +75,7 @@ void loop() {
     ledDetection();
     motor.stop();
     Serial.print("Estrategia: ");
-    Serial.println(seletorEstrategia.nomeAtual());
+    // Serial.println(seletorEstrategia.nomeAtual());
   }
 
   // ── COMBATE: executa a estratégia escolhida ───────────────

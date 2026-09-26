@@ -8,9 +8,9 @@
 #define S2 34  //lateral direita
 #define S3 35  //frontal direita
 #define S4 32
-#define S5 33
-#define S6 25  //servo
-#define S7 27  //frontal esquerda
+#define S5 33  //servo
+#define S6 25  //frontal esquerda
+#define S7 27  //!sem contato! checar eletronica
 #define S8 14  //lateral esquerda
 
 #define IR_PIN 15
@@ -25,17 +25,16 @@
 #define MB2 23
 
 #define SEsq  S8
-#define SFEsq S7
+#define SFEsq S6
 #define SFDir S3
 #define SDir  S2
 
 void setupPortas() {
   pinMode(S8, INPUT);
-  pinMode(S7, INPUT);
+  pinMode(S6, INPUT);
   pinMode(S3, INPUT);
   pinMode(S2, INPUT);
 
-  pinMode(SERVO_PIN, OUTPUT);
   pinMode(LED_STRIP, OUTPUT);
 }
 

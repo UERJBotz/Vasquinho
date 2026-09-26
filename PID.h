@@ -5,7 +5,7 @@
 #include "placa.h"
 #include "SumoDrive.h"
 
-DRV8833 motor(MB1, MB2, MA2, MA1); 
+DRV8833 motor(MB1, MB2, MA1 , MA2); 
 
 // Leitura dos sensores
 int leitura[4]; // [0]=esq, [1]=frente-esq, [2]=frente-dir, [3]=dir
@@ -23,7 +23,7 @@ unsigned long last_time = 0;
 
 void leituraSensores() {
   leitura[0] = digitalRead(S8);
-  leitura[1] = digitalRead(S7);
+  leitura[1] = digitalRead(S6);
   leitura[2] = digitalRead(S3);
   leitura[3] = digitalRead(S2);
 }
@@ -87,7 +87,7 @@ void iSeeYou() { // não é uma estratégia e sim o ataque principal, mas pode s
   velocidade_dir = constrain(velocidade_dir, -1023, 1023);
 
   if (PID == 0) { //! epsilon
-    motor.move(1023, 1023); // alvo detectado e perfeitamente centralizado -> avança em linha reta
+    motor.move(-1023, -1023); // alvo detectado e perfeitamente centralizado -> avança em linha reta
   } else {
     motor.move(velocidade_esq, velocidade_dir);
   }
@@ -102,8 +102,8 @@ void Calibragem() { // MODO TESTE DE CALIBRAGEM DO PID
     return;
   }
 
-  int velocidade_esq =  - PID;
-  int velocidade_dir =  + PID;
+  int velocidade_esq =  + PID;
+  int velocidade_dir =  - PID;
 
   velocidade_esq = constrain(velocidade_esq, -1023, 1023);
   velocidade_dir = constrain(velocidade_dir, -1023, 1023);
