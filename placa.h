@@ -9,11 +9,10 @@
 #define S3 35  //frontal direita
 #define S4 32
 #define S5 33
-#define S6 25
+#define S6 25  //servo
 #define S7 27  //frontal esquerda
 #define S8 14  //lateral esquerda
 
-#define SERVO_PIN S6
 #define IR_PIN 15
 #define LED_STRIP 2
 
