@@ -66,13 +66,16 @@ void loop() {
   bool emCombateAgora = moduloStart.emCombate();
   if (emCombateAgora && !emCombateAnterior) {
     resetSeekAndDestroy();
+    aplicarDirecaoServoSelecionada();
   }
   emCombateAnterior = emCombateAgora;
 
   // ── DESLIGADO: antes do PREPARAR ─────────────────────────
   if (moduloStart.desligado()) {
+    motor.stop(); 
     LED_Estrategias();
     decode_results* resultadoIR = moduloStart.ultimoResultado(); // lê o IR só 1x neste ciclo
+    selecionarDirecaoServo(resultadoIR); 
     seletorEstrategia.atualizar(resultadoIR);
     Serial.print("Estrategia: ");
     Serial.println(seletorEstrategia.nomeAtual()); // mostra leitura dos sensores nos LEDs
