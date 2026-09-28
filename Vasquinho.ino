@@ -23,17 +23,16 @@ void setup() {
   motor.begin();
   moduloStart.begin();   // sensor IR no pino 15 (não mudar)
   setupPortas();
-
+  
   // Diagnóstico: o PWM do motor NÃO pode mudar quando o servo liga.
   // Os 4 valores de "depois" têm que ser IGUAIS aos de "antes" (25000 Hz).
   Serial.printf("[Diag] PWM motor ANTES do servo : %lu / %lu / %lu / %lu Hz\n",
                 (unsigned long)ledcReadFreq(MB1), (unsigned long)ledcReadFreq(MB2),
                 (unsigned long)ledcReadFreq(MA2), (unsigned long)ledcReadFreq(MA1));
-  setupServo();          // servo em S5 (GPIO33) — começa "pra cima" (0°)
+  setupServo(); 
   Serial.printf("[Diag] PWM motor DEPOIS do servo: %lu / %lu / %lu / %lu Hz\n",
                 (unsigned long)ledcReadFreq(MB1), (unsigned long)ledcReadFreq(MB2),
                 (unsigned long)ledcReadFreq(MA2), (unsigned long)ledcReadFreq(MA1));
-
   pixels.begin();
   pixels.setBrightness(40); // 0 (apagado) a 255 (máximo) — ajuste aqui pra calibrar o brilho
 }
@@ -67,17 +66,14 @@ void loop() {
   bool emCombateAgora = moduloStart.emCombate();
   if (emCombateAgora && !emCombateAnterior) {
     resetSeekAndDestroy();
-    aplicarDirecaoServoSelecionada(); // "2" (INICIAR) do juiz -> move o servo pra direção escolhida
   }
   emCombateAnterior = emCombateAgora;
 
   // ── DESLIGADO: antes do PREPARAR ─────────────────────────
   if (moduloStart.desligado()) {
-    motor.stop(); // freio ativo enquanto espera o PREPARAR — nenhuma roda gira antes do start
     LED_Estrategias();
     decode_results* resultadoIR = moduloStart.ultimoResultado(); // lê o IR só 1x neste ciclo
     seletorEstrategia.atualizar(resultadoIR);
-    selecionarDirecaoServo(resultadoIR); // setas ESQ/DIR só REGISTRAM a direção — servo se move no INICIAR
     Serial.print("Estrategia: ");
     Serial.println(seletorEstrategia.nomeAtual()); // mostra leitura dos sensores nos LEDs
   }
