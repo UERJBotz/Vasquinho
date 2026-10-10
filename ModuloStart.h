@@ -72,6 +72,10 @@
 #define LEARN_TIMEOUT_MS    10000   // Tempo máximo esperando cada botão (10 s)
 // ─────────────────────────────────────────────────────────────
 
+//  ─── Extras ─────────────────────────────────────────────────
+#define IR_CMD_DIR   0xCD0
+#define IR_CMD_ESQ   0x2D0
+
 // ─── Códigos fixos de teste (sempre ativos) ───────────────────
 // Estes 3 códigos SEMPRE funcionam, mesmo depois de você aprender o
 // controle oficial do evento — os dois (fixo e aprendido) acionam o

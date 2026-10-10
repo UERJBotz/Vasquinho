@@ -1,20 +1,15 @@
 #ifndef ServoDirecao_H
 #define ServoDirecao_H
 
-
-
 #include <ESP32Servo.h>
 #include <IRrecv.h>     // decode_results (mesmo tipo usado por ModuloStart/SeletorEstrategia)
 #include "placa.h"
 
 
-#define IR_CMD_SERVO_ESQ   0xCD0   // <-- TROQUE pelo código real da seta ESQUERDA
-#define IR_CMD_SERVO_DIR   0x2D0   // <-- TROQUE pelo código real da seta DIREITA
-
-
-#define SERVO_ANGULO_CIMA   0    // posição inicial/neutra ("pra cima")
-#define SERVO_ANGULO_ESQ  -90
-#define SERVO_ANGULO_DIR   90
+#define SERVO_AJ 8
+#define SERVO_ANGULO_CIMA   (0 + SERVO_AJ)
+#define SERVO_ANGULO_ESQ   (90 + SERVO_AJ)
+#define SERVO_ANGULO_DIR  (-90 + SERVO_AJ)
 
 Servo servoDirecao;
 int   anguloServo        = SERVO_ANGULO_CIMA; // ângulo REALMENTE aplicado no servo agora
@@ -55,11 +50,11 @@ void selecionarDirecaoServo(decode_results* resultado) {
   uint64_t codigo = resultado->value;
   if (codigo == 0xFFFFFFFFFFFFFFFFULL || codigo == 0) return; // repeat/inválido, ignora
 
-  if (codigo == IR_CMD_SERVO_ESQ) {
+  if (codigo == IR_CMD_ESQ) {
     direcaoSelecionada = SERVO_ANGULO_ESQ;
     Serial.println("[Servo] direcao selecionada: ESQUERDA (só aplica quando o juiz mandar iniciar)");
   }
-  else if (codigo == IR_CMD_SERVO_DIR) {
+  else if (codigo == IR_CMD_DIR) {
     direcaoSelecionada = SERVO_ANGULO_DIR;
     Serial.println("[Servo] direcao selecionada: DIREITA (só aplica quando o juiz mandar iniciar)");
   }
