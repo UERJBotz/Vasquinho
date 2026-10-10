@@ -80,14 +80,14 @@ void iSeeYou() { // não é uma estratégia e sim o ataque principal, mas pode s
     return;
   }
 
-  int velocidade_esq =  + PID;
-  int velocidade_dir =  - PID;
+  int velocidade_esq = + PID;
+  int velocidade_dir = - PID;
 
   velocidade_esq = constrain(velocidade_esq, -1023, 1023);
   velocidade_dir = constrain(velocidade_dir, -1023, 1023);
 
   if (PID == 0) { //! epsilon
-    motor.move(-1023, -1023); // alvo detectado e perfeitamente centralizado -> avança em linha reta
+    motor.move(1023, 1023); // alvo detectado e perfeitamente centralizado -> avança em linha reta
   } else {
     motor.move(velocidade_esq, velocidade_dir);
   }
