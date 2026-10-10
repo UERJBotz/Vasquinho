@@ -5,15 +5,6 @@
 
 #define VEL_SEEK 600
 
-void paraTras() { // estratégia número 6 no controle
-  // Usa timers não-bloqueantes em vez de delay()
-  // Move para frente por 500ms, depois para trás por 350ms, depois executa iSeeYou
-  motor.move_for_then(1023, 1023, 500,
-                      -1023, 1023, 350);
-  iSeeYou();
-}
-
-
 int      SND_L_EXTERNO    = 1023;
 int      SND_L_INTERNO    = 650;   // CALIBRE AQUI — curvatura da busca ESQUERDA
 uint32_t SND_L_DURACAO_MS = 800;   // CALIBRE AQUI — duração do semicírculo esquerdo (ms)
@@ -54,6 +45,29 @@ void SeekAndDestroy_R(){ // estratégia número 5 no controle — busca pela lat
     Serial.println("SeekAndDestroy_R: semicirculo concluido -> PID (iSeeYou)");
   }
   iSeeYou();
+}
+
+void paraTras() { // estratégia número 6 no controle
+  // Usa timers não-bloqueantes em vez de delay()
+  // Move para frente por 500ms, depois para trás por 350ms, depois executa iSeeYou
+  motor.move_for_then(1023, 1023, 500,
+                      -1023, 1023, 350);
+  iSeeYou();
+}
+
+#define T_AVANCAR 2000
+#define VEL_AVANCAR 1023
+unsigned long prazo_avanco = 0;
+void AvancarPerseguir() {
+    if (prazo_avanco == 0)
+        prazo_avanco = millis() + T_AVANCAR;
+
+    if (millis() > prazo_avanco) iSeeYou();
+    else {
+        leituraSensores();
+        if (leitura[1] || leitura[2]) iSeeYou();
+        else motor.move(VEL_AVANCAR, VEL_AVANCAR);
+    }
 }
 
 void estadosBobo() {
